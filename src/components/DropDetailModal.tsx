@@ -58,66 +58,68 @@ export const DropDetailModal: React.FC = () => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs overflow-y-auto">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/70 backdrop-blur-xs overflow-y-auto">
       <div
         id="drop-detail-modal"
-        className="relative bg-white w-full max-w-2xl rounded-3xl shadow-xl border border-zinc-200 overflow-hidden my-8 animate-in fade-in zoom-in-95 duration-150"
+        className="relative bg-white w-full max-w-xl max-h-[92vh] rounded-2xl sm:rounded-3xl shadow-2xl border border-zinc-200 overflow-hidden flex flex-col my-auto animate-in fade-in zoom-in-95 duration-150"
       >
-        {/* Close Button */}
+        {/* Prominent High-Contrast Close / Exit Button */}
         <button
           onClick={() => setViewingDropId(null)}
-          className="absolute top-3.5 right-3.5 z-10 p-2 rounded-full bg-black/60 hover:bg-black/80 text-white backdrop-blur-xs transition cursor-pointer"
-          aria-label="Close dialog"
+          className="absolute top-3 right-3 z-30 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/95 hover:bg-white text-zinc-900 border border-zinc-300 shadow-md font-bold text-xs hover:scale-105 active:scale-95 transition cursor-pointer"
+          aria-label="Close drop dialog"
+          title="Close (Exit)"
         >
-          <X className="w-4 h-4" />
+          <X className="w-4 h-4 text-zinc-800" strokeWidth={2.5} />
+          <span>Exit</span>
         </button>
 
         {/* Modal Image Banner */}
-        <div className="relative h-60 sm:h-68 bg-zinc-100 overflow-hidden">
+        <div className="relative h-44 sm:h-52 shrink-0 bg-zinc-100 overflow-hidden">
           <img
             src={drop.image}
             alt={drop.title}
             referrerPolicy="no-referrer"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
 
           {/* Badges on Image */}
-          <div className="absolute top-3.5 left-3.5 flex flex-wrap gap-2">
+          <div className="absolute top-3 left-3 flex flex-wrap gap-1.5 pr-24">
             {drop.isVipEarlyAccess && (
-              <span className="inline-flex items-center gap-1.5 bg-zinc-900 text-white font-semibold text-xs px-2.5 py-1 rounded shadow-xs">
-                <Sparkles className="w-3.5 h-3.5 text-zinc-300" />
+              <span className="inline-flex items-center gap-1 bg-zinc-900/90 text-white font-semibold text-[11px] px-2 py-0.5 rounded shadow-xs backdrop-blur-xs">
+                <Sparkles className="w-3 h-3 text-amber-300" />
                 VIP Early Window
               </span>
             )}
             {isUrgent && (
-              <span className="inline-flex items-center gap-1.5 bg-zinc-900 text-white font-semibold text-xs px-2.5 py-1 rounded shadow-xs">
-                <Flame className="w-3.5 h-3.5 text-rose-400" />
+              <span className="inline-flex items-center gap-1 bg-rose-600/90 text-white font-bold text-[11px] px-2 py-0.5 rounded shadow-xs backdrop-blur-xs">
+                <Flame className="w-3 h-3 text-white" />
                 Only {drop.remainingBatch} Left
               </span>
             )}
           </div>
 
           {/* Bottom Title on Image */}
-          <div className="absolute bottom-3.5 left-3.5 right-3.5 text-white">
-            <div className="flex items-center gap-2 mb-1">
-              <span className="text-xs text-zinc-300 bg-black/50 px-2 py-0.5 rounded backdrop-blur-xs font-semibold">
+          <div className="absolute bottom-3 left-3.5 right-3.5 text-white">
+            <div className="flex items-center gap-1.5 mb-0.5">
+              <span className="text-[11px] text-zinc-200 bg-black/60 px-2 py-0.5 rounded backdrop-blur-xs font-semibold">
                 📍 {drop.neighborhood}
               </span>
               {drop.mainCategory && (
-                <span className="text-xs text-zinc-300 bg-black/50 px-2 py-0.5 rounded backdrop-blur-xs font-semibold">
+                <span className="text-[11px] text-zinc-200 bg-black/60 px-2 py-0.5 rounded backdrop-blur-xs font-semibold">
                   {drop.mainCategory}
                 </span>
               )}
             </div>
-            <h2 className="text-lg sm:text-xl font-bold font-display text-white">
+            <h2 className="text-base sm:text-lg font-bold font-display text-white leading-tight">
               {drop.title}
             </h2>
           </div>
         </div>
 
-        {/* Modal Body */}
-        <div className="p-5 sm:p-6 space-y-5 max-h-[calc(85vh-280px)] overflow-y-auto">
+        {/* Modal Body (Scrollable container) */}
+        <div className="p-4 sm:p-5 space-y-4 overflow-y-auto flex-1">
           
           {/* Food Status Integrity Section */}
           <div className="bg-zinc-50 p-4 rounded-2xl border border-zinc-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3">

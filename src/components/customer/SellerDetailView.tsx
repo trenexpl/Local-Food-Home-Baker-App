@@ -3,6 +3,7 @@ import { useApp } from '../../context/AppContext';
 import { FoodStatusBadge } from '../FoodStatusBadge';
 import {
   ArrowLeft,
+  X,
   Star,
   MapPin,
   CheckCircle2,
@@ -138,30 +139,55 @@ export const SellerDetailView: React.FC = () => {
     <div className="space-y-6 pb-20 animate-in fade-in duration-200">
       
       {/* Back Button Bar */}
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between gap-3">
         <button
           onClick={() => setViewingSellerId(null)}
-          className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-white border border-zinc-200 text-zinc-800 font-bold text-xs hover:bg-zinc-50 transition shadow-xs cursor-pointer"
+          className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-white border border-zinc-300 text-zinc-900 font-bold text-xs hover:bg-zinc-100 hover:text-black transition shadow-xs cursor-pointer group"
+          title="Return to food directory"
         >
-          <ArrowLeft className="w-4 h-4" />
+          <ArrowLeft className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform text-zinc-800" />
           <span>Back to Directory</span>
         </button>
 
-        <button
-          onClick={() => toggleFavoriteSeller(seller.id)}
-          className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-white border border-zinc-200 text-zinc-800 font-bold text-xs hover:bg-zinc-50 transition shadow-xs cursor-pointer"
-        >
-          <Heart className={`w-4 h-4 ${isFavorited ? 'fill-zinc-900 text-zinc-900' : 'text-zinc-600'}`} />
-          <span>{isFavorited ? 'Saved in Favorites' : 'Save Kitchen'}</span>
-        </button>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={() => toggleFavoriteSeller(seller.id)}
+            className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-white border border-zinc-300 text-zinc-800 font-bold text-xs hover:bg-zinc-50 transition shadow-xs cursor-pointer"
+          >
+            <Heart className={`w-4 h-4 ${isFavorited ? 'fill-rose-500 text-rose-500' : 'text-zinc-600'}`} />
+            <span className="hidden sm:inline">{isFavorited ? 'Saved' : 'Save Kitchen'}</span>
+          </button>
+
+          {/* Direct Cross / Exit Button */}
+          <button
+            onClick={() => setViewingSellerId(null)}
+            className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-zinc-900 hover:bg-zinc-800 text-white font-bold text-xs transition shadow-xs cursor-pointer"
+            aria-label="Exit kitchen view"
+            title="Exit / Close"
+          >
+            <X className="w-4 h-4 text-white" strokeWidth={2.5} />
+            <span>Close</span>
+          </button>
+        </div>
       </div>
 
       {/* 3-IMAGE GALLERY HERO BANNER */}
-      <div className="bg-white rounded-3xl border border-zinc-200 overflow-hidden shadow-xs">
+      <div className="bg-white rounded-3xl border border-zinc-200 overflow-hidden shadow-xs relative">
         
+        {/* Floating Top-Right Exit Button on Banner */}
+        <button
+          onClick={() => setViewingSellerId(null)}
+          className="absolute top-5 right-5 z-20 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/95 hover:bg-white text-zinc-900 border border-zinc-300 shadow-lg font-bold text-xs hover:scale-105 active:scale-95 transition cursor-pointer"
+          aria-label="Exit kitchen view"
+          title="Exit Kitchen"
+        >
+          <X className="w-3.5 h-3.5 text-zinc-900" strokeWidth={2.5} />
+          <span>Exit</span>
+        </button>
+
         {/* 3 Photos Grid Header */}
         <div className="p-3 bg-zinc-50 border-b border-zinc-100">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-2 h-64 md:h-72 rounded-2xl overflow-hidden">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-2 h-52 sm:h-60 md:h-64 rounded-2xl overflow-hidden">
             {/* Main Featured Photo (Left 2 cols on desktop) */}
             <div className="md:col-span-2 relative h-full bg-zinc-200 rounded-xl overflow-hidden">
               <img
@@ -170,23 +196,24 @@ export const SellerDetailView: React.FC = () => {
                 referrerPolicy="no-referrer"
                 className="w-full h-full object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent"></div>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent"></div>
 
               {/* SFA Badge */}
               <div className="absolute top-3 left-3 bg-black/60 backdrop-blur-md text-white text-[11px] font-semibold px-3 py-1 rounded-full border border-white/20 flex items-center gap-1.5">
                 <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
-                <span>SFA Certified Singapore Home Kitchen</span>
+                <span className="hidden sm:inline">SFA Certified Singapore Home Kitchen</span>
+                <span className="sm:hidden">SFA Certified</span>
               </div>
 
               {/* Location Tag */}
-              <div className="absolute bottom-3 left-3 text-white text-xs bg-black/70 backdrop-blur-md px-3 py-1 rounded-xl flex items-center gap-1.5">
-                <MapPin className="w-3.5 h-3.5 text-amber-400" />
-                <span>{seller.fullAddress}</span>
+              <div className="absolute bottom-3 left-3 text-white text-xs bg-black/70 backdrop-blur-md px-3 py-1 rounded-xl flex items-center gap-1.5 max-w-[80%] truncate">
+                <MapPin className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+                <span className="truncate">{seller.fullAddress}</span>
               </div>
 
-              <div className="absolute top-3 right-3 text-white text-[10px] font-bold bg-black/60 px-2 py-0.5 rounded-md flex items-center gap-1">
+              <div className="absolute bottom-3 right-3 text-white text-[10px] font-bold bg-black/60 px-2 py-0.5 rounded-md flex items-center gap-1">
                 <ImageIcon className="w-3 h-3" />
-                <span>Photo {selectedGalleryIndex + 1} of 3</span>
+                <span>Photo {selectedGalleryIndex + 1}/3</span>
               </div>
             </div>
 
