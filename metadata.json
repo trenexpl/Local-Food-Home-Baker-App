@@ -1,0 +1,6 @@
+{
+  "name": "SGHomeEats",
+  "description": "Singapore's curated marketplace for verified home kitchens, artisanal bakers, and heritage home-cooked meals.",
+  "requestFramePermissions": ["geolocation"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
