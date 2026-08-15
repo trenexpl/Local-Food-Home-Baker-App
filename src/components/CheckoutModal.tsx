@@ -65,13 +65,18 @@ export const CheckoutModal: React.FC = () => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-xs overflow-y-auto">
+    <div
+      onClick={(e) => {
+        if (e.target === e.currentTarget) setIsCheckoutOpen(false);
+      }}
+      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/75 backdrop-blur-xs overflow-y-auto"
+    >
       <div
         id="checkout-modal-container"
-        className="relative bg-white w-full max-w-2xl rounded-3xl shadow-2xl border border-stone-200 overflow-hidden my-8 animate-in fade-in zoom-in-95 duration-200"
+        className="relative bg-white w-full max-w-2xl max-h-[90vh] rounded-3xl shadow-2xl border border-stone-200 overflow-hidden flex flex-col my-auto animate-in fade-in zoom-in-95 duration-150"
       >
         {/* Header */}
-        <div className="p-4 sm:p-5 bg-zinc-950 text-white flex items-center justify-between border-b border-zinc-800">
+        <div className="p-4 sm:p-5 bg-zinc-950 text-white flex items-center justify-between border-b border-zinc-800 shrink-0">
           <div className="flex items-center gap-2.5">
             <div className="w-8 h-8 rounded-xl bg-amber-500 text-zinc-950 flex items-center justify-center font-bold">
               🍲
@@ -85,14 +90,16 @@ export const CheckoutModal: React.FC = () => {
           </div>
           <button
             onClick={() => setIsCheckoutOpen(false)}
-            className="p-2 rounded-full hover:bg-zinc-800 text-zinc-400 hover:text-white transition cursor-pointer"
+            className="flex items-center gap-1 px-3 py-1.5 rounded-full bg-zinc-800 hover:bg-zinc-700 text-white text-xs font-bold transition cursor-pointer"
+            aria-label="Close checkout"
           >
-            <X className="w-5 h-5" />
+            <X className="w-4 h-4" />
+            <span>Exit</span>
           </button>
         </div>
 
         {/* Form Body */}
-        <form onSubmit={handleSubmit} className="p-4 sm:p-6 space-y-6 max-h-[calc(85vh-180px)] overflow-y-auto">
+        <form onSubmit={handleSubmit} className="p-4 sm:p-6 space-y-6 overflow-y-auto flex-1">
           
           {/* Section 1: Fulfillment Type */}
           <div>

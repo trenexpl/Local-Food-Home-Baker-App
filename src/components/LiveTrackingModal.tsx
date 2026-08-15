@@ -67,13 +67,18 @@ export const LiveTrackingModal: React.FC = () => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-xs overflow-y-auto">
+    <div
+      onClick={(e) => {
+        if (e.target === e.currentTarget) setTrackingOrderId(null);
+      }}
+      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/75 backdrop-blur-xs overflow-y-auto"
+    >
       <div
         id="live-tracking-modal-container"
-        className="relative bg-white w-full max-w-3xl rounded-3xl shadow-2xl border border-stone-200 overflow-hidden my-6 animate-in fade-in zoom-in-95 duration-200"
+        className="relative bg-white w-full max-w-3xl max-h-[90vh] rounded-3xl shadow-2xl border border-stone-200 overflow-hidden flex flex-col my-auto animate-in fade-in zoom-in-95 duration-150"
       >
         {/* Header */}
-        <div className="p-4 sm:p-5 bg-zinc-950 text-white flex items-center justify-between border-b border-zinc-800">
+        <div className="p-4 sm:p-5 bg-zinc-950 text-white flex items-center justify-between border-b border-zinc-800 shrink-0">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-2xl bg-amber-500 text-zinc-950 flex items-center justify-center font-black text-lg shadow-md">
               🛵
@@ -106,15 +111,17 @@ export const LiveTrackingModal: React.FC = () => {
 
             <button
               onClick={() => setTrackingOrderId(null)}
-              className="p-2 rounded-full hover:bg-zinc-800 text-zinc-400 hover:text-white transition cursor-pointer"
+              className="flex items-center gap-1 px-3 py-1.5 rounded-full bg-zinc-800 hover:bg-zinc-700 text-white text-xs font-bold transition cursor-pointer"
+              aria-label="Close tracking dialog"
             >
-              <X className="w-5 h-5" />
+              <X className="w-4 h-4" />
+              <span>Exit</span>
             </button>
           </div>
         </div>
 
         {/* Modal Scrollable Content */}
-        <div className="p-4 sm:p-6 space-y-6 max-h-[calc(88vh-140px)] overflow-y-auto">
+        <div className="p-4 sm:p-6 space-y-6 overflow-y-auto flex-1">
           
           {/* Status Progress Stepper */}
           <div className="bg-stone-50 p-4 rounded-2xl border border-stone-200">

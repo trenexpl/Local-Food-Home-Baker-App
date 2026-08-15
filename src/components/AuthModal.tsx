@@ -87,13 +87,18 @@ export const AuthModal: React.FC = () => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-xs overflow-y-auto">
+    <div
+      onClick={(e) => {
+        if (e.target === e.currentTarget) setIsAuthModalOpen(false);
+      }}
+      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/75 backdrop-blur-xs overflow-y-auto"
+    >
       <div
         id="auth-modal-container"
-        className="relative bg-white w-full max-w-md rounded-3xl shadow-2xl border border-stone-200 overflow-hidden my-8 animate-in fade-in zoom-in-95 duration-200"
+        className="relative bg-white w-full max-w-md max-h-[90vh] rounded-3xl shadow-2xl border border-stone-200 overflow-hidden flex flex-col my-auto animate-in fade-in zoom-in-95 duration-150"
       >
         {/* Header */}
-        <div className="p-5 bg-zinc-950 text-white flex items-center justify-between border-b border-zinc-800">
+        <div className="p-4 sm:p-5 bg-zinc-950 text-white flex items-center justify-between border-b border-zinc-800 shrink-0">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-2xl bg-amber-500 text-zinc-950 flex items-center justify-center font-bold text-lg shadow-sm">
               🍞
@@ -109,14 +114,16 @@ export const AuthModal: React.FC = () => {
           </div>
           <button
             onClick={() => setIsAuthModalOpen(false)}
-            className="p-1.5 rounded-full hover:bg-zinc-800 text-zinc-400 hover:text-white transition cursor-pointer"
+            className="flex items-center gap-1 px-2.5 py-1 rounded-full bg-zinc-800 hover:bg-zinc-700 text-white text-xs font-bold transition cursor-pointer"
+            aria-label="Close modal"
           >
-            <X className="w-5 h-5" />
+            <X className="w-4 h-4" />
+            <span className="hidden sm:inline">Exit</span>
           </button>
         </div>
 
         {/* Content */}
-        <div className="p-6 space-y-5">
+        <div className="p-5 sm:p-6 space-y-5 overflow-y-auto flex-1">
           {userPrefs.isLoggedIn ? (
             /* Logged in state inside modal */
             <div className="space-y-4">

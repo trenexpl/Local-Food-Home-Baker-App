@@ -81,13 +81,18 @@ export const CreateDropModal: React.FC = () => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-sm overflow-y-auto">
+    <div
+      onClick={(e) => {
+        if (e.target === e.currentTarget) setIsCreateDropModalOpen(false);
+      }}
+      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/75 backdrop-blur-sm overflow-y-auto"
+    >
       <div
         id="create-drop-modal-container"
-        className="relative bg-white w-full max-w-2xl rounded-3xl shadow-2xl border border-zinc-200 overflow-hidden my-8 animate-in fade-in zoom-in-95 duration-200"
+        className="relative bg-white w-full max-w-2xl max-h-[90vh] rounded-3xl shadow-2xl border border-zinc-200 overflow-hidden flex flex-col my-auto animate-in fade-in zoom-in-95 duration-150"
       >
         {/* Header */}
-        <div className="p-4 sm:p-5 bg-zinc-900 text-white flex items-center justify-between">
+        <div className="p-4 sm:p-5 bg-zinc-900 text-white flex items-center justify-between shrink-0">
           <div className="flex items-center gap-2.5">
             <div className="w-9 h-9 rounded-xl bg-amber-500 text-zinc-950 flex items-center justify-center font-bold">
               🔥
@@ -101,14 +106,16 @@ export const CreateDropModal: React.FC = () => {
           </div>
           <button
             onClick={() => setIsCreateDropModalOpen(false)}
-            className="p-1.5 rounded-full hover:bg-zinc-800 text-zinc-400 hover:text-white transition cursor-pointer"
+            className="flex items-center gap-1 px-3 py-1.5 rounded-full bg-zinc-800 hover:bg-zinc-700 text-white text-xs font-bold transition cursor-pointer"
+            aria-label="Close modal"
           >
-            <X className="w-5 h-5" />
+            <X className="w-4 h-4" />
+            <span>Exit</span>
           </button>
         </div>
 
         {/* Form Body */}
-        <form onSubmit={handleSubmit} className="p-4 sm:p-6 space-y-4 max-h-[calc(85vh-160px)] overflow-y-auto">
+        <form onSubmit={handleSubmit} className="p-4 sm:p-6 space-y-4 overflow-y-auto flex-1">
           
           {/* Drop Title & Tagline */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
