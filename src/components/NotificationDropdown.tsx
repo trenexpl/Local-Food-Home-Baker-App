@@ -60,12 +60,13 @@ export const NotificationDropdown: React.FC = () => {
       <button
         id="btn-notification-bell"
         onClick={() => setIsOpen(!isOpen)}
-        className="relative p-2 text-stone-700 hover:text-stone-950 hover:bg-stone-100 rounded-full transition"
+        className="relative p-1.5 sm:p-2 text-stone-700 hover:text-stone-950 hover:bg-stone-100 rounded-full transition cursor-pointer"
         aria-label="View notifications"
+        title="Notifications"
       >
-        <Bell className="w-5 h-5" />
+        <Bell className="w-4.5 h-4.5 sm:w-5 sm:h-5" />
         {unreadCount > 0 && (
-          <span className="absolute top-1 right-1 flex h-4 w-4 items-center justify-center rounded-full bg-rose-500 text-[10px] font-bold text-white shadow-sm ring-2 ring-white animate-pulse">
+          <span className="absolute -top-0.5 -right-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-rose-500 text-[9px] sm:text-[10px] font-bold text-white shadow-sm ring-1.5 sm:ring-2 ring-white animate-pulse">
             {unreadCount}
           </span>
         )}
@@ -74,7 +75,7 @@ export const NotificationDropdown: React.FC = () => {
       {isOpen && (
         <div
           id="notifications-popover"
-          className="absolute right-0 mt-2 w-80 sm:w-96 bg-white rounded-2xl shadow-2xl border border-stone-200/80 z-50 overflow-hidden animate-in fade-in slide-in-from-top-2 duration-150"
+          className="fixed sm:absolute left-3 right-3 sm:left-auto sm:right-0 top-16 sm:top-auto sm:mt-2 max-w-sm sm:w-96 bg-white rounded-2xl shadow-2xl border border-stone-200/80 z-50 overflow-hidden animate-in fade-in slide-in-from-top-2 duration-150"
         >
           <div className="p-3.5 bg-stone-900 text-white flex items-center justify-between">
             <div className="flex items-center gap-2">
